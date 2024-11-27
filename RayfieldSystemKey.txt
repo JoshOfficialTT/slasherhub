@@ -1,0 +1,77 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({
+    Name = "Key System to SlasherHub",
+    HidePremium = true,
+    SaveConfig = true,
+    ConfigFolder = "OrionTest",
+    IntroEnabled = true,
+    IntroText = "SlasherHub's Key System",
+    IntroIcon = "rbxassetid://221748794"
+})
+
+local Tab = Window:MakeTab({
+    Name = "Key System",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local correctKey = "gyatt2" -- The valid key
+local enteredKey = "" -- Variable to store the entered key
+
+-- Textbox for key entry
+Tab:AddTextbox({
+    Name = "Type key",
+    Default = "type key",
+    TextDisappear = false,
+    Callback = function(Value)
+        enteredKey = Value -- Store the entered key for later validation
+    end
+})
+
+-- Button to check the entered key
+Tab:AddButton({
+    Name = "check key",
+    Callback = function()
+        if enteredKey == correctKey then
+            -- If the key is correct, load the script after a delay
+            OrionLib:MakeNotification({
+                Name = "Success",
+                Content = "Key validated successfully. Executing code...",
+                Image = "rbxassetid://9649923610",
+                Time = 5
+            })
+            wait(5) -- Wait 5 seconds before executing the code
+            local loadStringCode = "https://raw.githubusercontent.com/JoshOfficialTT/slasherhubwithkeysystem/main/rayfieldlinkslasher"
+            loadstring(game:HttpGet(loadStringCode))()
+            OrionLib:Destroy() -- Destroy the current GUI
+        else
+            -- If the key is incorrect, notify the user
+            OrionLib:MakeNotification({
+                Name = "Error",
+                Content = "Invalid key. Please try again.",
+                Image = "rbxassetid://16661795559",
+                Time = 5
+            })
+        end
+    end
+})
+
+-- Label and button for getting the key
+Tab:AddLabel("Don't know the key? Click the Get key button!")
+
+Tab:AddButton({
+    Name = "get key",
+    Callback = function()
+        setclipboard("https://dc.gg/jsv") -- Copy the link to the clipboard
+        OrionLib:MakeNotification({
+            Name = "Get Key",
+            Content = "Link is copied to your clipboard, join the server!",
+            Image = "rbxassetid://9649923610",
+            Time = 10
+        })
+    end
+})
+
+-- Initialize OrionLib
+OrionLib:Init()
